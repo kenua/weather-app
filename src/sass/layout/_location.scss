@@ -1,0 +1,94 @@
+@use '../variables' as *;
+
+.logo {
+    text-align: center;
+
+    &__img {
+        margin: 0 auto 19px;
+    }
+    &__heading {
+        background: linear-gradient(to top, $thirdly, #FFF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 4rem;
+        display: inline-block;
+        margin: 0;
+    }
+}
+.location-form {
+    &__select-container {
+        width: 100%;
+        border: 1px solid #777;
+        border-radius: 8px;
+        padding-right: 13px;
+        font-size: 1.8rem;
+        cursor: pointer;
+        line-height: 1.1;
+        background-color: $secondary;
+        background-image: linear-gradient(to right, $secondary, $primary);
+        display: grid;
+        align-items: center;
+
+        &::before {
+            content: "";
+            grid-column: 1;
+            grid-row: 1;
+            justify-self: end;
+            width: 0.8em;
+            height: 0.5em;
+            background-color: $white;
+            clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+        }
+    }
+    &__select {
+        letter-spacing: 1px;
+        font-weight: bold;
+        font-size: 1.8rem;
+        color: $white;
+        text-align: center;
+        padding: 13px 0 13px 13px;
+        grid-column: 1;
+        grid-row: 1;
+    }
+}
+.select {
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+    position: relative;
+
+    select,
+    &::after {
+        grid-area: select;
+    }
+
+    min-width: 15ch;
+    max-width: 30ch;
+
+    border: 1px solid grey;
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+
+    &::after {
+        content: "";
+        justify-self: end;
+        width: 0.8em;
+        height: 0.5em;
+        background-color: red;
+        clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    }
+}
+.dropdown {
+    &__item {
+        &:focus {
+            outline: solid;
+            user-select: none;
+        }
+    }
+}
