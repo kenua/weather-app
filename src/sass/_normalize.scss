@@ -181,9 +181,22 @@ img {
   select,
   textarea {
     font-family: inherit; /* 1 */
+    font-weight: inherit;
     font-size: 100%; /* 1 */
     line-height: 1.15; /* 1 */
     margin: 0; /* 2 */
+    appearance: none;
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    z-index: 1;
   }
   
   /**

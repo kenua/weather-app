@@ -107,28 +107,32 @@ function CustomSelect(props) {
     }, [showOptions]);
 
     // # METHODS
-    const toggleOptions = () => {
+    const toggleOptions = (e) => {
+        let parent = e.target.parentElement;
+
         if (showOptions) {
             setShowOptions(false);
             areOptionsOpen.current = false;
+            parent.classList.remove('select-input--open');
         } else {
             setShowOptions(true);
             areOptionsOpen.current = true;
+            parent.classList.add('select-input--open');
         }
     };
 
     return (
         <div className="custom-select">
-            <div className="custom-select__input-container">
+            <div className="select-input">
                 <input 
                     type="text" 
-                    className="custom-select__input"
+                    className="select-input__input"
                     tabIndex="0" 
                     onClick={toggleOptions}
                     value={inputValue}
                     readOnly={true}
                 />
-                <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg" className="select-input__icon">
                     <path 
                         fillRule="evenodd" 
                         clipRule="evenodd" 
