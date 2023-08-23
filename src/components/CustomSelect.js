@@ -54,6 +54,7 @@ function CustomSelect(props) {
     let [optionId, setOptionId] = useState(null);
 
     // # REF VARIABLES
+    const selectInputRef = useRef(null);
     const optionsRef = useRef(null);
     let areOptionsOpen = useRef(false); // used to prevent handleOptionsActions from running on every key press when options are not open
 
@@ -67,6 +68,7 @@ function CustomSelect(props) {
         setOptionId(id);
         document.activeElement.blur();
         setShowOptions(false);
+        selectInputRef.current.classList.remove('select-input--open');
     };
     let handleOptionsActions = function (e) {
         // only run function if showOptions is open
@@ -89,6 +91,7 @@ function CustomSelect(props) {
                 break;
             case 'Enter':
                 selectOption(document.activeElement);
+                selectInputRef.current.classList.remove('select-input--open');
                 break;
         }
     }
@@ -107,28 +110,27 @@ function CustomSelect(props) {
     }, [showOptions]);
 
     // # METHODS
-    const toggleOptions = (e) => {
-        let parent = e.target.parentElement;
-
+    const toggleOptions = () => {
         if (showOptions) {
             setShowOptions(false);
             areOptionsOpen.current = false;
-            parent.classList.remove('select-input--open');
+            selectInputRef.current.classList.remove('select-input--open');
+            document.activeElement.blur();
         } else {
             setShowOptions(true);
             areOptionsOpen.current = true;
-            parent.classList.add('select-input--open');
+            selectInputRef.current.classList.add('select-input--open');
         }
     };
 
     return (
         <div className="custom-select">
-            <div className="select-input">
+            <div ref={selectInputRef} className="select-input">
                 <input 
                     type="text" 
                     className="select-input__input"
                     tabIndex="0" 
-                    onClick={toggleOptions}
+                    onFocus={toggleOptions}
                     value={inputValue}
                     readOnly={true}
                 />
