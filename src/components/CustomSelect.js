@@ -57,18 +57,37 @@ function CustomSelect(props) {
     const selectInputRef = useRef(null);
     const optionsRef = useRef(null);
     let areOptionsOpen = useRef(false); // used to prevent handleOptionsActions from running on every key press when options are not open
+    let animationRunning = useRef(false);
 
     // # FUNCTIONS
+    let closeOptions = () => {
+        setShowOptions(false);
+        areOptionsOpen.current = false;
+        selectInputRef.current.classList.remove('select-input--open');
+        document.activeElement.blur();
+    };
+    let fadeOutOptions = () => {
+        let eventListener = () => {
+            closeOptions();
+            animationRunning.current = false;
+            optionsRef.current.removeEventListener('animationend', eventListener);
+        };
+
+        optionsRef.current.addEventListener('animationend', eventListener);
+        optionsRef.current.classList.remove('fade-in');
+        optionsRef.current.classList.add('fade-out');
+        animationRunning.current = true;
+    };
     let selectOption = (node) => {
+        if (animationRunning.current) return;
+
         let { lat, long, id } = node.dataset;
 
         setInputValue(node.textContent);
         props.setLatitude(lat);
         props.setLongitude(long);
         setOptionId(id);
-        document.activeElement.blur();
-        setShowOptions(false);
-        selectInputRef.current.classList.remove('select-input--open');
+        fadeOutOptions();
     };
     let handleOptionsActions = function (e) {
         // only run function if showOptions is open
@@ -106,16 +125,14 @@ function CustomSelect(props) {
         if (showOptions) {
             let selectedOption = optionsRef.current.firstElementChild
             selectedOption.focus();
+            optionsRef.current.classList.add('fade-in');
         }
     }, [showOptions]);
 
     // # METHODS
     const toggleOptions = () => {
         if (showOptions) {
-            setShowOptions(false);
-            areOptionsOpen.current = false;
-            selectInputRef.current.classList.remove('select-input--open');
-            document.activeElement.blur();
+            fadeOutOptions();
         } else {
             setShowOptions(true);
             areOptionsOpen.current = true;

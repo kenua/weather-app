@@ -22,13 +22,6 @@ function Location() {
                     setLatitude={setLatitude} 
                     setLongitude={setLongitude} 
                 />
-
-                <div className="location-form__select-container">
-                    <select name="location-dropdown" className="location-form__select">
-                        <option value="">Select Location </option>
-                        <option value="new-york">New York</option>
-                    </select>
-                </div>
             </form>
         </section>
     );
