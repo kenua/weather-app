@@ -1,7 +1,105 @@
+@use './variables' as *;
+
 .f-nunito {
     font-family: 'Nunito', sans-serif;
 }
 .wrapper {
     max-width: 445px;
     margin: 80px auto;
+}
+.input {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    background-color: $secondary;
+    background-image: linear-gradient(to right, $secondary, $primary);
+    color: $white;
+    padding: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    transition: color 250ms ease-in-out,
+                border-color 250ms ease-in-out;
+
+    &:hover, &:focus {
+        border-color: white;
+    }
+}
+.input--coordinates {
+    font-size: 1.6rem;
+    font-weight: normal;
+    padding: 30px 13px 10px;
+}
+.label-input {
+    position: relative;
+
+    &__label {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+        text-transform: capitalize;
+        color: $white;
+        position: absolute;
+        top: 16px;
+        left: 13px;
+        transform: translateY(-50%);
+        transition: top 250ms ease-in-out,
+                    transform 250ms ease-in-out,
+                    font-size 250ms ease-in-out;
+        opacity: .8;
+    }
+    &__label--lift {
+        font-size: 1.6rem;
+        top: -26px;
+        left: 13px;
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+.arrow-button {
+    letter-spacing: 1px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 16px;
+
+    &__shapes-wrapper {
+        display: flex;
+        align-items: center;
+    }
+    &__dot, &__line {
+        background-color: $secondary;
+        height: 6px;
+        border-radius: 12px;    
+        display: inline-block;
+        transition: width 250ms ease-in-out,
+                    transform 250ms ease-in-out;
+    }
+    &__dot {
+        width: 6px;
+        transform: translateX(10px);
+        transition: width 250ms ease-in-out,
+                    transform 250ms ease-in-out;
+    }
+    &__line {
+        width: 50px;
+    }
+    &__icon {
+        width: 23px;
+        height: 13px;
+        transform: rotate(-90deg);
+        transition: transform 250ms ease-in-out;
+    }
+    &:hover &__dot {
+        transform: translateX(-10px);
+    }
+    &:hover &__line {
+        width: 25px;
+    }
+    &:hover &__icon {
+        transform: rotate(-90deg) translateY(-10px);
+    }
 }

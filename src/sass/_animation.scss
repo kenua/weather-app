@@ -7,6 +7,17 @@
         opacity: 1;
     }
 }
+@keyframes fade-in-left {
+    0% {
+        opacity: 0;
+        transform: translateX(25%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 @keyframes fade-out {
     0% {
         opacity: 1;
@@ -16,6 +27,17 @@
         opacity: 0;
     }
 }
+@keyframes fade-out-left {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-25%);
+    }
+}
 
 .fade-in {
     animation-name: fade-in;
@@ -23,9 +45,21 @@
     animation-timing-function: ease-out;
     animation-fill-mode:       forwards;
 }
+.fade-in-left  {
+    animation-name: fade-in-left;
+    animation-duration:        250ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode:       forwards;
+}
 .fade-out {
     animation-name: fade-out;
     animation-duration:        200ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode:       forwards;
+}
+.fade-out-left {
+    animation-name: fade-out-left;
+    animation-duration:        250ms;
     animation-timing-function: ease-out;
     animation-fill-mode:       forwards;
 }

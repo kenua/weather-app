@@ -16,73 +16,35 @@
     }
 }
 .location-form {
-    margin-top: 24px;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 100%;
 
-    &__select-container {
-        width: 100%;
-        border: 1px solid #777;
-        border-radius: 8px;
-        padding-right: 13px;
-        font-size: 1.8rem;
-        cursor: pointer;
-        line-height: 1.1;
-        background-color: $secondary;
-        background-image: linear-gradient(to right, $secondary, $primary);
-        display: grid;
-        align-items: center;
-
-        &::before {
-            content: "";
-            grid-column: 1;
-            grid-row: 1;
-            justify-self: end;
-            width: 0.8em;
-            height: 0.5em;
-            background-color: $white;
-            clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-        }
-    }
-    &__select {
-        letter-spacing: 1px;
-        font-weight: bold;
-        font-size: 1.8rem;
-        color: $white;
-        text-align: center;
-        padding: 13px 0 13px 13px;
-        grid-column: 1;
-        grid-row: 1;
+    &__field-container {
+        height: 96px;
+        z-index: 2;
     }
 }
 .custom-select {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: $white;
     position: relative;
 }
 .select-input {
-    background-color: $secondary;
-    background-image: linear-gradient(to right, $secondary, $primary);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 8px;
+    padding: 0;
     display: grid;
     align-items: center;
     cursor: pointer;
     position: relative;
     z-index: 10;
     user-select: none;
-    transition: color 250ms ease-in-out,
-                border-color 250ms ease-in-out;
-    &:hover {
-        border-color: white;
 
-        .custom-select__icon {
+    &:hover {
+        .select-input__icon {
             opacity: 1;
         }
     }
 
     &__input {
-        letter-spacing: 1px;
-        text-transform: capitalize;
+        letter-spacing: inherit;
         text-align: center;
         grid-column: 1;
         grid-row: 1;
@@ -113,16 +75,17 @@
 }
 .options {
     list-style: none;
-    background-image: linear-gradient(to right, $secondary, $primary);
     width: 100%;
     margin: 0;
     padding: 13px 0;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 8px;
     position: absolute;
     top: calc(100% + 7px);
     left: 0;
     z-index: 9;
+
+    &:hover {
+        border-color: rgba(255, 255, 255, 0.25);
+    }
 
     &__option {
         text-align: center;
@@ -130,12 +93,16 @@
         cursor: pointer;
         transition: background-color 250ms ease-in-out;
 
-        &:hover {
+        &:hover, &:focus {
             background-color: rgba(0,0,0,0.25);
         }
         &:focus {
             outline: solid;
-            background-color: rgba(0,0,0,0.25);
         }
     }
+}
+.coordinates {
+    width: 100%;
+    display: flex;
+    column-gap: 7px;
 }

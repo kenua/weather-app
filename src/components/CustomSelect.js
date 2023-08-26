@@ -26,7 +26,7 @@ const Options = forwardRef((props, ref) => {
     return (
         <ul 
             ref={ref} 
-            className="options" 
+            className="options input" 
             onMouseDown={(e) => selectOption(e.target)}
         >
             { optionsList.map(option => {
@@ -47,7 +47,7 @@ const Options = forwardRef((props, ref) => {
     );
 });
 
-function CustomSelect(props) {
+const CustomSelect = forwardRef((props, ref) => {
     // # STATE VARIABLES
     let [inputValue, setInputValue] = useState('Select Location');
     let [showOptions, setShowOptions] = useState(false);
@@ -141,8 +141,8 @@ function CustomSelect(props) {
     };
 
     return (
-        <div className="custom-select">
-            <div ref={selectInputRef} className="select-input">
+        <div ref={ref} className="custom-select">
+            <div ref={selectInputRef} className="select-input input">
                 <input 
                     type="text" 
                     className="select-input__input"
@@ -167,6 +167,6 @@ function CustomSelect(props) {
             { showOptions && <Options ref={optionsRef} id={optionId} selectOption={selectOption} /> }
         </div>
     );
-}
+});
 
 export default CustomSelect;
