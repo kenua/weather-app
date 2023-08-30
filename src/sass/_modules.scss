@@ -3,49 +3,116 @@
 .f-nunito {
     font-family: 'Nunito', sans-serif;
 }
+.text-center {
+    text-align: center;
+}
 .wrapper {
     max-width: 445px;
     margin: 80px auto;
 }
-.input {
+.btn {
     font-size: 1.8rem;
-    font-weight: bold;
+    font-weight: 500;
     letter-spacing: 1px;
-    text-transform: capitalize;
-    background-color: $secondary;
-    background-image: linear-gradient(to right, $secondary, $primary);
-    color: $white;
-    padding: 13px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 8px;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: transparent;
+    background-image: linear-gradient(135deg, $secondary, $primary);
+    color: $color;
+    padding: 13px 26px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    box-shadow: rgb(0 0 0 / 50%) 0px 20px 30px -10px;
     transition: color 250ms ease-in-out,
                 border-color 250ms ease-in-out;
+    cursor: pointer;
 
+    &__icon {
+        fill: $color;
+        stroke: $color;
+        transition: stroke 250ms ease-in-out,
+                    fill 250ms ease-in-out;
+    }
     &:hover, &:focus {
-        border-color: white;
+        color: $thirdly;
+        border-color: $thirdly;
+    }
+    &:hover &__icon, &:focus &__icon  {
+        fill: $thirdly;
+        stroke: $thirdly;
     }
 }
-.input--coordinates {
-    font-size: 1.6rem;
-    font-weight: normal;
-    padding: 30px 13px 10px;
-}
-.label-input {
+.select-box {
+    padding: 0;
+    display: grid;
+    align-items: center;
+    cursor: pointer;
     position: relative;
+    z-index: 10;
+    user-select: none;
+    overflow: hidden;
 
+    &__input {
+        letter-spacing: inherit;
+        text-align: center;
+        grid-column: 1;
+        grid-row: 1;
+        padding: 13px 0;
+        &::selection {
+            background-color: transparent;
+        }
+    }
+    &__icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 13px;
+        justify-self: end;
+        grid-column: 1;
+        grid-row: 1;
+        transition: stroke 250ms ease-in-out,
+                    fill 250ms ease-in-out,
+                    transform 350ms ease-in-out;
+    }
+}
+.select-box--open {
+    border-color: white;
+
+    .select-box__icon {
+        transform: rotateX(180deg);
+    }
+}
+.input-box {
+    font-size: 1.8rem;
+    position: relative;
+    cursor: text;
+
+    &__input {
+        font-weight: normal;
+        text-indent: -9999px;
+        text-align: left;
+        width: 100%;
+        padding: 13px;
+        transition: color 250ms ease-in-out,
+                    border-color 250ms ease-in-out;
+        cursor: inherit;;
+    }
+    &__input--visible {
+        text-indent: 0;
+    }
     &__label {
         font-size: 1.4rem;
         letter-spacing: 1px;
         text-transform: capitalize;
-        color: $white;
+        color: $color;
         position: absolute;
-        top: 16px;
+        top: 50%;
         left: 13px;
         transform: translateY(-50%);
         transition: top 250ms ease-in-out,
                     transform 250ms ease-in-out,
                     font-size 250ms ease-in-out;
         opacity: .8;
+        cursor: inherit;
     }
     &__label--lift {
         font-size: 1.6rem;
@@ -53,53 +120,5 @@
         left: 13px;
         transform: translateY(0%);
         opacity: 1;
-    }
-}
-.arrow-button {
-    letter-spacing: 1px;
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 16px;
-
-    &__shapes-wrapper {
-        display: flex;
-        align-items: center;
-    }
-    &__dot, &__line {
-        background-color: $secondary;
-        height: 6px;
-        border-radius: 12px;    
-        display: inline-block;
-        transition: width 250ms ease-in-out,
-                    transform 250ms ease-in-out;
-    }
-    &__dot {
-        width: 6px;
-        transform: translateX(10px);
-        transition: width 250ms ease-in-out,
-                    transform 250ms ease-in-out;
-    }
-    &__line {
-        width: 50px;
-    }
-    &__icon {
-        width: 23px;
-        height: 13px;
-        transform: rotate(-90deg);
-        transition: transform 250ms ease-in-out;
-    }
-    &:hover &__dot {
-        transform: translateX(-10px);
-    }
-    &:hover &__line {
-        width: 25px;
-    }
-    &:hover &__icon {
-        transform: rotate(-90deg) translateY(-10px);
     }
 }

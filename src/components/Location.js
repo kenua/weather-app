@@ -97,24 +97,16 @@ function Location() {
                           />
                     }
                 </div>
-                <a className="arrow-button" onClick={changeField} tabIndex="0">
-                    <span class="arrow-button__shapes-wrapper">
-                        <span className="arrow-button__dot"></span>
-                        <span className="arrow-button__line"></span>
-                    </span>
-                    Change
-                    <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg" className="arrow-button__icon">
-                        <path 
-                            fillRule="evenodd" 
-                            clipRule="evenodd" 
-                            d="M1.14645 1.14645C1.34171 0.951184 1.65829 0.951184 1.85355 1.14645L7.5 6.79289L13.1464 1.14645C13.3417 0.951184 13.6583 0.951184 13.8536 1.14645C14.0488 1.34171 14.0488 1.65829 13.8536 1.85355L7.85355 7.85355C7.65829 8.04882 7.34171 8.04882 7.14645 7.85355L1.14645 1.85355C0.951184 1.65829 0.951184 1.34171 1.14645 1.14645Z" 
-                            fill="white" 
-                            stroke="white" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                </a>
+                <div className="text-center">
+                    <button 
+                        type="button" 
+                        className="btn" 
+                        onClick={changeField} 
+                        tabIndex="0"
+                    >
+                        type coordinates
+                    </button>
+                </div>
             </form>
         </section>
     );

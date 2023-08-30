@@ -26,7 +26,7 @@ const Options = forwardRef((props, ref) => {
     return (
         <ul 
             ref={ref} 
-            className="options input" 
+            className="options" 
             onMouseDown={(e) => selectOption(e.target)}
         >
             { optionsList.map(option => {
@@ -63,7 +63,7 @@ const CustomSelect = forwardRef((props, ref) => {
     let closeOptions = () => {
         setShowOptions(false);
         areOptionsOpen.current = false;
-        selectInputRef.current.classList.remove('select-input--open');
+        selectInputRef.current.classList.remove('select-box--open');
         document.activeElement.blur();
     };
     let fadeOutOptions = () => {
@@ -110,7 +110,7 @@ const CustomSelect = forwardRef((props, ref) => {
                 break;
             case 'Enter':
                 selectOption(document.activeElement);
-                selectInputRef.current.classList.remove('select-input--open');
+                selectInputRef.current.classList.remove('select-box--open');
                 break;
         }
     }
@@ -136,22 +136,22 @@ const CustomSelect = forwardRef((props, ref) => {
         } else {
             setShowOptions(true);
             areOptionsOpen.current = true;
-            selectInputRef.current.classList.add('select-input--open');
+            selectInputRef.current.classList.add('select-box--open');
         }
     };
 
     return (
-        <div ref={ref} className="custom-select">
-            <div ref={selectInputRef} className="select-input input">
+        <div ref={ref} className="select-box-container">
+            <div ref={selectInputRef} className="select-box btn">
                 <input 
                     type="text" 
-                    className="select-input__input"
+                    className="select-box__input"
                     tabIndex="0" 
                     onFocus={toggleOptions}
                     value={inputValue}
                     readOnly={true}
                 />
-                <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg" className="select-input__icon">
+                <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg" className="select-box__icon btn__icon">
                     <path 
                         fillRule="evenodd" 
                         clipRule="evenodd" 

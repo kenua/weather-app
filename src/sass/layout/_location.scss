@@ -17,75 +17,39 @@
 }
 .location-form {
     margin-top: 30px;
-    display: grid;
-    grid-template-columns: 100%;
 
     &__field-container {
         height: 96px;
         z-index: 2;
     }
 }
-.custom-select {
+.select-box-container {
     position: relative;
-}
-.select-input {
-    padding: 0;
-    display: grid;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    z-index: 10;
-    user-select: none;
-
-    &:hover {
-        .select-input__icon {
-            opacity: 1;
-        }
-    }
-
-    &__input {
-        letter-spacing: inherit;
-        text-align: center;
-        grid-column: 1;
-        grid-row: 1;
-        padding: 13px 0;
-        &::selection {
-            background-color: transparent;
-        }
-    }
-    &__icon {
-        width: 18px;
-        height: 18px;
-        margin-right: 13px;
-        justify-self: end;
-        grid-column: 1;
-        grid-row: 1;
-        opacity: 0.75;
-        transition: opacity 250ms ease-in-out,
-                    transform 350ms ease-in-out;
-
-    }
-}
-.select-input--open {
-    border-color: white;
-
-    .select-input__icon {
-        transform: rotateX(180deg);
-    }
 }
 .options {
+    font-size: 1.8rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: rgb(132, 132, 132);
+    background-image: linear-gradient(135deg, rgb(132, 132, 132), rgb(36, 24, 51));
+    color: $color;
+    border: 2px solid #fff;
+    border-radius: 16px;
+    box-shadow: rgb(0 0 0 / 50%) 0px 20px 30px -10px;
+    transition: color 250ms ease-in-out,
+                border-color 250ms ease-in-out;
+    cursor: pointer;
     list-style: none;
     width: 100%;
     margin: 0;
     padding: 13px 0;
+    overflow: hidden;
     position: absolute;
     top: calc(100% + 7px);
     left: 0;
-    z-index: 9;
-
-    &:hover {
-        border-color: rgba(255, 255, 255, 0.25);
-    }
+    z-index: 11;
 
     &__option {
         text-align: center;
@@ -95,6 +59,7 @@
 
         &:hover, &:focus {
             background-color: rgba(0,0,0,0.25);
+            color: $thirdly;
         }
         &:focus {
             outline: solid;
@@ -104,5 +69,5 @@
 .coordinates {
     width: 100%;
     display: flex;
-    column-gap: 7px;
+    column-gap: 13px;
 }

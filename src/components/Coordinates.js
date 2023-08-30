@@ -1,16 +1,22 @@
-import { useEffect, forwardRef } from 'react';
+import { useEffect, forwardRef, useRef } from 'react';
 
 const Coordinates = forwardRef((props, ref) => {
     let { latitude, setLatitude, longitude, setLongitude } = props;
 
     const liftLabel = (e) => {
         let label = e.target.previousElementSibling;
-        label.classList.add('label-input__label--lift');
+        e.target.classList.add('input-box__input--visible');
+        label.classList.add('input-box__label--lift');
     }
     
     const dropLabel = (e) => {
-        let label = e.target.previousElementSibling;
-        label.classList.remove('label-input__label--lift');
+        let input = e.target;
+        let label = input.previousElementSibling;
+
+        if (input.value.length === 0) {
+            input.classList.remove('input-box__input--visible');
+            label.classList.remove('input-box__label--lift');
+        }
     }
 
     // use this function in other occation
@@ -21,30 +27,30 @@ const Coordinates = forwardRef((props, ref) => {
 
     // reset latitude and longitude when component is mounted
     useEffect(() => {
-        setLatitude(0);
-        setLongitude(0);
+        setLatitude('');
+        setLongitude('');
     }, []);
 
     return (
         <div ref={ref} className="coordinates">
-            <div className="coordinates__item label-input">
-                <label htmlFor="latitude" className="label-input__label">Latitude</label>
+            <div className="coordinates__item input-box">
+                <label htmlFor="latitude" className="input-box__label">Latitude</label>
                 <input 
                     type="number" 
                     id="latitude" 
-                    className="label-input__input input input--coordinates" 
+                    className="input-box__input btn" 
                     onFocus={liftLabel} 
                     onBlur={dropLabel}
                     value={latitude}
                     onChange={(e) => setLatitude(e.target.value)}
                 />
             </div>
-            <div className="coordinates__item label-input">
-                <label htmlFor="longitude" className="label-input__label">Longitude</label>
+            <div className="coordinates__item input-box">
+                <label htmlFor="longitude" className="input-box__label">Longitude</label>
                 <input 
                     type="number" 
                     id="longitude" 
-                    className="label-input__input input input--coordinates" 
+                    className="input-box__input btn" 
                     onFocus={liftLabel} 
                     onBlur={dropLabel} 
                     value={longitude}
