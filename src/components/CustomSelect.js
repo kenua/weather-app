@@ -1,4 +1,5 @@
 import { useState, useRef, forwardRef, useEffect } from 'react';
+import { fadeNode } from '../modules/fadeNode';
 import optionsData from '../assets/dropdownData.json';
 
 const Options = forwardRef((props, ref) => {
@@ -66,18 +67,6 @@ const CustomSelect = forwardRef((props, ref) => {
         selectInputRef.current.classList.remove('select-box--open');
         document.activeElement.blur();
     };
-    let fadeOutOptions = () => {
-        let eventListener = () => {
-            closeOptions();
-            animationRunning.current = false;
-            optionsRef.current.removeEventListener('animationend', eventListener);
-        };
-
-        optionsRef.current.addEventListener('animationend', eventListener);
-        optionsRef.current.classList.remove('fade-in');
-        optionsRef.current.classList.add('fade-out');
-        animationRunning.current = true;
-    };
     let selectOption = (node) => {
         if (animationRunning.current) return;
 
@@ -87,7 +76,11 @@ const CustomSelect = forwardRef((props, ref) => {
         props.setLatitude(lat);
         props.setLongitude(long);
         setOptionId(id);
-        fadeOutOptions();
+        animationRunning.current = true;
+        fadeNode(optionsRef, 'fade-out', 'fade-in', () => {
+            closeOptions();
+            animationRunning.current = false;
+        });
     };
     let handleOptionsActions = function (e) {
         // only run function if showOptions is open
@@ -132,7 +125,11 @@ const CustomSelect = forwardRef((props, ref) => {
     // # METHODS
     const toggleOptions = () => {
         if (showOptions) {
-            fadeOutOptions();
+            animationRunning.current = true;
+            fadeNode(optionsRef, 'fade-out', 'fade-in', () => {
+                closeOptions();
+                animationRunning.current = false;
+            });
         } else {
             setShowOptions(true);
             areOptionsOpen.current = true;

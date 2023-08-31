@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import weatherLogo from '../assets/images/Logo.svg';
 import CustomSelect from './CustomSelect';
 import Coordinates from './Coordinates';
+import { fadeNode } from '../modules/fadeNode';
 
 /*
     # Goal (high-level)
@@ -39,24 +40,24 @@ function Location() {
 
     let customSelectRef = useRef(null);
     let coordinatesRef = useRef(null);
-
-    const fadeOutField = (nodeRef, callback) => {
-        nodeRef = nodeRef.current;
-
-        let listener = () => {
-            nodeRef.removeEventListener('animationend', listener);
-            callback();
-        };
-
-        nodeRef.addEventListener('animationend', listener);
-        nodeRef.classList.add('fade-out-left');
-    }
+    let changeBtnRef = useRef(null);
 
     const changeField = () => {
+        // fade out customSelectRef
         if (showCustomSelect) {
-            fadeOutField(customSelectRef, () => setShowCustomSelect(false));
+            fadeNode(customSelectRef, 'fade-out-left', 'fade-in-left', () => setShowCustomSelect(false));
+            fadeNode(changeBtnRef, 'fade-out-left', 'fade-in-left', () => {
+                changeBtnRef.current.textContent = 'Select Location';
+                fadeNode(changeBtnRef, 'fade-in-left', 'fade-out-left', null);
+            });
+
+        // fade out coordinatesRef
         } else {
-            fadeOutField(coordinatesRef, () => setShowCustomSelect(true));
+            fadeNode(coordinatesRef, 'fade-out-left', 'fade-in-left', () => setShowCustomSelect(true));
+            fadeNode(changeBtnRef, 'fade-out-left', 'fade-in-left', () => {
+                changeBtnRef.current.textContent = 'type Coordinates';
+                fadeNode(changeBtnRef, 'fade-in-left', 'fade-out-left', null);
+            });
         }
     };
 
@@ -99,6 +100,7 @@ function Location() {
                 </div>
                 <div className="text-center">
                     <button 
+                        ref={changeBtnRef}
                         type="button" 
                         className="btn" 
                         onClick={changeField} 

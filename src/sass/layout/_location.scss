@@ -25,6 +25,7 @@
 }
 .select-box-container {
     position: relative;
+    z-index: 2;
 }
 .options {
     font-size: 1.8rem;
@@ -49,7 +50,6 @@
     position: absolute;
     top: calc(100% + 7px);
     left: 0;
-    z-index: 11;
 
     &__option {
         text-align: center;
