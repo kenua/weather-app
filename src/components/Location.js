@@ -1,74 +1,53 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import weatherLogo from '../assets/images/Logo.svg';
+import Button from './Button';
 import CustomSelect from './CustomSelect';
 import Coordinates from './Coordinates';
-import { fadeNode } from '../modules/fadeNode';
 
-/*
-    # Goal (high-level)
-    Build the Coordinates component to allow the user to type custom 
-    coordinates.
-
-    - Create Coordinates component which holds the latitude and 
-    longitude fields. This component should be printed along
-    side CustomSelect, but it is hidden from the page using
-    CSS. 
-    - Add two buttons which allow the page to show and hide
-    either CustomSelect and Coordinates components using CSS.
-    The animation should move the components from right to
-    left
-*/
-/*
-    # low-level
-
-    - define two state variables form holding the latitude and longitude
-    input value.
-    - define a ref variable "showCustomSelectRef" which represents what 
-    component is shown, and use it to show and hide each component. 
-    - CustomSelect and Coordinates components could be enclosed in a div
-    with two buttons (one for changing that field to view and the other
-    for submitting the information) abd their parent element could be
-    a grid to be able to place one of them to the right side of the 
-    screen.
-    
-*/
+const fadeVariants = {
+    initial: { 
+        opacity: 0,
+        x: 100,
+    },
+    animate: { 
+        opacity: 1, 
+        x: 0,
+        transition: {
+            duration: 0.25
+        },
+    },
+    exit: { 
+        opacity: 0,
+        x: -100,
+        transition: {
+            duration: 0.25
+        },
+    },
+};
 
 function Location() {
-    let [latitude, setLatitude] = useState(0);
-    let [longitude, setLongitude] = useState(0);
+    let [latitude, setLatitude] = useState('');
+    let [longitude, setLongitude] = useState('');
     let [showCustomSelect, setShowCustomSelect] = useState(true);
+    let [showWeatherBtn, setShowWeatherBtn] = useState(false);
 
     let customSelectRef = useRef(null);
     let coordinatesRef = useRef(null);
-    let changeBtnRef = useRef(null);
 
     const changeField = () => {
-        // fade out customSelectRef
-        if (showCustomSelect) {
-            fadeNode(customSelectRef, 'fade-out-left', 'fade-in-left', () => setShowCustomSelect(false));
-            fadeNode(changeBtnRef, 'fade-out-left', 'fade-in-left', () => {
-                changeBtnRef.current.textContent = 'Select Location';
-                fadeNode(changeBtnRef, 'fade-in-left', 'fade-out-left', null);
-            });
-
-        // fade out coordinatesRef
-        } else {
-            fadeNode(coordinatesRef, 'fade-out-left', 'fade-in-left', () => setShowCustomSelect(true));
-            fadeNode(changeBtnRef, 'fade-out-left', 'fade-in-left', () => {
-                changeBtnRef.current.textContent = 'type Coordinates';
-                fadeNode(changeBtnRef, 'fade-in-left', 'fade-out-left', null);
-            });
-        }
+        setShowCustomSelect(!showCustomSelect);
+        setLatitude('');
+        setLongitude('');
     };
 
-    // Fade in coordinates or customSelect component
     useEffect(() => {
-        if (!showCustomSelect) {
-            coordinatesRef.current.classList.add('fade-in-left');
+        if (latitude.length > 0 && longitude.length > 0) {
+            setShowWeatherBtn(true);
         } else {
-            customSelectRef.current.classList.add('fade-in-left');
+            setShowWeatherBtn(false);
         }
-    }, [showCustomSelect]);
+    }, [latitude, longitude]);
 
     return (
         <section className="location wrapper">
@@ -83,32 +62,77 @@ function Location() {
             
             <form className="location-form">
                 <div className="location-form__field-container">
-                    { showCustomSelect 
-                        ? <CustomSelect 
-                            ref={customSelectRef}
-                            setLatitude={setLatitude} 
-                            setLongitude={setLongitude} 
-                          />
-                        : <Coordinates 
-                            ref={coordinatesRef}
-                            latitude={latitude}
-                            longitude={longitude}
-                            setLatitude={setLatitude} 
-                            setLongitude={setLongitude} 
-                          />
-                    }
+                    <AnimatePresence mode="wait">
+                        {(showCustomSelect && 
+                            <motion.div
+                                key="1"
+                                variants={fadeVariants}
+                                initial={"initial"}
+                                animate={"animate"}
+                                exit={"exit"}
+                            >
+                                <CustomSelect 
+                                    ref={customSelectRef}
+                                    setLatitude={setLatitude} 
+                                    setLongitude={setLongitude} 
+                                />
+                            </motion.div>
+                        )}
+                        {(!showCustomSelect && 
+                            <motion.div
+                                key="2"
+                                variants={fadeVariants}
+                                initial={"initial"}
+                                animate={"animate"}
+                                exit={"exit"}
+                            >
+                                <Coordinates 
+                                    ref={coordinatesRef}
+                                    latitude={latitude}
+                                    longitude={longitude}
+                                    setLatitude={setLatitude} 
+                                    setLongitude={setLongitude} 
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
-                <div className="text-center">
-                    <button 
-                        ref={changeBtnRef}
-                        type="button" 
-                        className="btn" 
-                        onClick={changeField} 
-                        tabIndex="0"
-                    >
-                        type coordinates
-                    </button>
-                </div>
+                <AnimatePresence mode="wait">
+                    {(showCustomSelect && 
+                        <motion.div className="text-center"
+                            key="1"
+                            variants={fadeVariants}
+                            initial={"initial"}
+                            animate={"animate"}
+                            exit={"exit"}
+                        >
+                            <Button handleClick={changeField}>Type Coordinates</Button>
+                        </motion.div>
+                    )}
+                    {(!showCustomSelect && 
+                        <motion.div className="text-center"
+                            key="2"
+                            variants={fadeVariants}
+                            initial={"initial"}
+                            animate={"animate"}
+                            exit={"exit"}
+                        >
+                            <Button handleClick={changeField}>Select Location</Button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                <AnimatePresence>
+                    {(showWeatherBtn &&
+                        <motion.div className="text-center"
+                            variants={fadeVariants}
+                            initial={"initial"}
+                            animate={"animate"}
+                            exit={"exit"}
+                        >
+                            <Button handleClick={() => { console.log('hello') }}>Get Weather</Button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </form>
         </section>
     );

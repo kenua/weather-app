@@ -1,6 +1,32 @@
 import { useState, useRef, forwardRef, useEffect } from 'react';
-import { fadeNode } from '../modules/fadeNode';
+import { motion, AnimatePresence } from 'framer-motion';
 import optionsData from '../assets/dropdownData.json';
+
+const showVariants = {
+    initial: { 
+        opacity: 0,
+    },
+    animate: { 
+        opacity: 1, 
+        transition: {
+            duration: 0.25
+        },
+    },
+    exit: { 
+        opacity: 0,
+        transition: {
+            duration: 0.25
+        },
+    },
+};
+const rotateVariant = {
+    pointDown: {
+        transform: 'rotateX(0deg)',
+    },
+    pointUp: {
+        transform: 'rotateX(180deg)',
+    },
+};
 
 const Options = forwardRef((props, ref) => {
     let { id, selectOption } = props;
@@ -58,29 +84,21 @@ const CustomSelect = forwardRef((props, ref) => {
     const selectInputRef = useRef(null);
     const optionsRef = useRef(null);
     let areOptionsOpen = useRef(false); // used to prevent handleOptionsActions from running on every key press when options are not open
-    let animationRunning = useRef(false);
 
     // # FUNCTIONS
     let closeOptions = () => {
         setShowOptions(false);
         areOptionsOpen.current = false;
-        selectInputRef.current.classList.remove('select-box--open');
         document.activeElement.blur();
     };
     let selectOption = (node) => {
-        if (animationRunning.current) return;
-
         let { lat, long, id } = node.dataset;
 
         setInputValue(node.textContent);
         props.setLatitude(lat);
         props.setLongitude(long);
         setOptionId(id);
-        animationRunning.current = true;
-        fadeNode(optionsRef, 'fade-out', 'fade-in', () => {
-            closeOptions();
-            animationRunning.current = false;
-        });
+        closeOptions();
     };
     let handleOptionsActions = function (e) {
         // only run function if showOptions is open
@@ -103,7 +121,6 @@ const CustomSelect = forwardRef((props, ref) => {
                 break;
             case 'Enter':
                 selectOption(document.activeElement);
-                selectInputRef.current.classList.remove('select-box--open');
                 break;
         }
     }
@@ -115,25 +132,19 @@ const CustomSelect = forwardRef((props, ref) => {
 
     // select first dropdown option
     useEffect(() => {
-        if (showOptions) {
+        if (showOptions && optionsRef.current) {
             let selectedOption = optionsRef.current.firstElementChild
             selectedOption.focus();
-            optionsRef.current.classList.add('fade-in');
         }
     }, [showOptions]);
 
     // # METHODS
     const toggleOptions = () => {
         if (showOptions) {
-            animationRunning.current = true;
-            fadeNode(optionsRef, 'fade-out', 'fade-in', () => {
-                closeOptions();
-                animationRunning.current = false;
-            });
+            closeOptions();
         } else {
             setShowOptions(true);
             areOptionsOpen.current = true;
-            selectInputRef.current.classList.add('select-box--open');
         }
     };
 
@@ -148,7 +159,17 @@ const CustomSelect = forwardRef((props, ref) => {
                     value={inputValue}
                     readOnly={true}
                 />
-                <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg" className="select-box__icon btn__icon">
+                <motion.svg 
+                    variants={rotateVariant}
+                    animate={showOptions ? 'pointUp' : 'pointDown'}
+                    transition={{ duration: 0.01 }}
+                    width="15" 
+                    height="9" 
+                    viewBox="0 0 15 9" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="select-box__icon btn__icon"
+                >
                     <path 
                         fillRule="evenodd" 
                         clipRule="evenodd" 
@@ -158,10 +179,21 @@ const CustomSelect = forwardRef((props, ref) => {
                         strokeLinecap="round" 
                         strokeLinejoin="round"
                     />
-                </svg>
+                </motion.svg>
             </div>
         
-            { showOptions && <Options ref={optionsRef} id={optionId} selectOption={selectOption} /> }
+            <AnimatePresence>
+                { showOptions &&
+                    <motion.div
+                        variants={showVariants}
+                        initial={"initial"}
+                        animate={"animate"}
+                        exit={"exit"}
+                    >
+                        <Options ref={optionsRef} id={optionId} selectOption={selectOption} />
+                    </motion.div>
+                }
+            </AnimatePresence>
         </div>
     );
 });

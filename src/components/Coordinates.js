@@ -1,4 +1,4 @@
-import { useEffect, forwardRef, useRef } from 'react';
+import { forwardRef } from 'react';
 
 const Coordinates = forwardRef((props, ref) => {
     let { latitude, setLatitude, longitude, setLongitude } = props;
@@ -24,12 +24,6 @@ const Coordinates = forwardRef((props, ref) => {
         let coordinateRegExp = /^-?[0-9]+\.?[0-9]*$/;
         return str.match(coordinateRegExp) ? +str : 0;
     };
-
-    // reset latitude and longitude when component is mounted
-    useEffect(() => {
-        setLatitude('');
-        setLongitude('');
-    }, []);
 
     return (
         <div ref={ref} className="coordinates">
