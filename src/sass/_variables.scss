@@ -21,3 +21,26 @@ $easingAndDur: ease-in-out 300ms;
 .theme--blue {
     --current: #{$blue};
 }
+
+%button-base {
+    text-transform: lowercase;
+    font-size: 12px;
+    font-weight: 900;
+    width: 100%;
+    max-width: 230px;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+%transitionColor {
+    transition: 
+        background-color $easingAndDur,
+        color $easingAndDur,
+        border-color $easingAndDur;
+}
+%buttonTransition {
+    transition: 
+        background-color $easingAndDur,
+        color $easingAndDur,
+        border-color $easingAndDur,
+        box-shadow ease-in-out 200ms;
+}

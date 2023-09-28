@@ -1,4 +1,7 @@
+@use '../variables' as *;
+
 .corner-particle {
+    @extend %transitionColor;
     background-color: var(--current);
     width: 294px;
     height: 294px;
@@ -28,6 +31,7 @@
     overflow: hidden;
 
     &__particle {
+        @extend %transitionColor;
         background-color: var(--current);
         border-radius: 100%;
         position: absolute;

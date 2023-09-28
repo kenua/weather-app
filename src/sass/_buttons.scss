@@ -1,25 +1,14 @@
 @use 'sass:color';
 @use './variables' as *;
 
-%button-base {
-    text-transform: lowercase;
-    font-size: 12px;
-    font-weight: 900;
-    width: 100%;
-    max-width: 230px;
-    padding: 8px 12px;
-    border-radius: 8px;
-}
 .button {
     @extend %button-base;
+    @extend %buttonTransition;
     background-color: var(--current);
     color: color.adjust(#000, $alpha: -0.3);
     cursor: pointer;
     display: inline-flex;
     justify-content: center;
-    transition:  
-        color $easingAndDur,
-        box-shadow ease-in-out 200ms;
 
     &:hover, &:focus {
         color: color.adjust(#000, $alpha: -0.1);
@@ -37,10 +26,6 @@
     background-color: transparent;
     color: var(--current);
     border: 2px solid var(--current);
-    transition: 
-            background-color $easingAndDur,
-            color $easingAndDur,
-            box-shadow ease-in-out 200ms;
 
     &:hover, &:focus {
         background-color: var(--current);
@@ -53,21 +38,9 @@
     position: relative;
 
     &-content {
-        @extend %button-base;
         padding: 0;
-        color: var(--current);
-        border: 2px solid var(--current);
         display: grid;
-        transition: 
-            background-color $easingAndDur,
-            color $easingAndDur,
-            box-shadow ease-in-out 200ms;
 
-        &:hover {
-            background-color: var(--current);
-            color: color.adjust(#000, $alpha: -0.3);
-            box-shadow: 0 0 30px -10px var(--current);
-        }
         &:hover .select-button__icon {
             fill: color.adjust(#000, $alpha: -0.3);
         }
@@ -124,9 +97,6 @@
         background-color: transparent;
         color: var(--current);
         border-radius: 0;
-        transition: 
-            background-color $easingAndDur,
-            color $easingAndDur;
         cursor: pointer;
 
         &:hover, &:focus {

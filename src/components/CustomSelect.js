@@ -148,7 +148,7 @@ function CustomSelect (props) {
 
     return (
         <div className="select-button mb">
-            <div className="select-button-content">
+            <div className="select-button-content button button--ghost">
                 <input 
                     type="text" 
                     className="select-button-content__input"
