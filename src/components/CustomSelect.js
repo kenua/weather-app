@@ -124,16 +124,15 @@ function CustomSelect (props) {
         }
     }
 
-    // define window key events
     useEffect(() => {
         window.addEventListener('keyup', handleOptionsActions);
+        return () => window.removeEventListener('keyup', handleOptionsActions);
     }, []);
 
-    // select first dropdown option
+    // focus first element of Option component
     useEffect(() => {
         if (showOptions && optionsRef.current) {
-            let selectedOption = optionsRef.current.firstElementChild
-            selectedOption.focus();
+            optionsRef.current.firstElementChild.focus();
         }
     }, [showOptions]);
 
