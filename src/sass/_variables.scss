@@ -1,4 +1,23 @@
-$primary: rgb(36, 24, 51);
-$secondary: rgba(132, 132, 132, 0.35);
-$thirdly: rgb(225, 135, 0);
-$color: #FFF;
+$black: #050403;
+$brown: #261D14;
+$yellow: #F6B62D;
+$purple: #B1A0F8;
+$blue: #138EFF;
+$turquoise: #12EC9C;
+
+$easingAndDur: ease-in-out 300ms;
+
+// custom properties used for changing 
+// the color of buttons and particles
+:root {
+    --current: #{$turquoise};
+}
+.theme--yellow {
+    --current: #{$yellow};
+}
+.theme--purple {
+    --current: #{$purple};
+}
+.theme--blue {
+    --current: #{$blue};
+}

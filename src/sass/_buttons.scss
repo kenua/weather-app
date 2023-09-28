@@ -1,0 +1,137 @@
+@use 'sass:color';
+@use './variables' as *;
+
+%button-base {
+    text-transform: lowercase;
+    font-size: 12px;
+    font-weight: 900;
+    width: 100%;
+    max-width: 230px;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+.button {
+    @extend %button-base;
+    background-color: var(--current);
+    color: color.adjust(#000, $alpha: -0.3);
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    transition:  
+        color $easingAndDur,
+        box-shadow ease-in-out 200ms;
+
+    &:hover, &:focus {
+        color: color.adjust(#000, $alpha: -0.1);
+        box-shadow: 0 0 30px -10px var(--current);
+    }
+    &__item {
+        flex-grow: 1;
+    }
+    &__icon {
+        flex-grow: 0;
+    }
+}
+.button--ghost {
+    @extend %button-base;
+    background-color: transparent;
+    color: var(--current);
+    border: 2px solid var(--current);
+    transition: 
+            background-color $easingAndDur,
+            color $easingAndDur,
+            box-shadow ease-in-out 200ms;
+
+    &:hover, &:focus {
+        background-color: var(--current);
+        color: color.adjust(#000, $alpha: -0.3);
+        box-shadow: 0 0 30px -10px var(--current);
+    }
+}
+.select-button {
+    display: block;
+    position: relative;
+
+    &-content {
+        @extend %button-base;
+        padding: 0;
+        color: var(--current);
+        border: 2px solid var(--current);
+        display: grid;
+        transition: 
+            background-color $easingAndDur,
+            color $easingAndDur,
+            box-shadow ease-in-out 200ms;
+
+        &:hover {
+            background-color: var(--current);
+            color: color.adjust(#000, $alpha: -0.3);
+            box-shadow: 0 0 30px -10px var(--current);
+        }
+        &:hover .select-button__icon {
+            fill: color.adjust(#000, $alpha: -0.3);
+        }
+    }
+    &-content__input {
+        text-align: center;
+        width: 100%;
+        grid-column: 1;
+        grid-row: 1;
+        padding: 8px 12px;
+        cursor: pointer;
+        z-index: 2;
+
+        &::selection {
+            background-color: transparent;
+        }
+    }
+    &__icon {
+        fill: var(--current);
+        margin-right: 12px;
+        grid-column: 1;
+        grid-row: 1;
+        align-self: center;
+        justify-self: end;
+        z-index: 1;
+
+        path {
+            transition: 
+                fill $easingAndDur;
+        }
+    }
+    &-options {
+        background-color: transparent;
+        backdrop-filter: blur(30px);
+        background-clip: padding-box;
+        background-image: linear-gradient(
+            135deg,
+            $black,
+            color.adjust($black, $alpha: -0.5),
+        );
+        width: 100%;
+        max-width: 230px;
+        border: 2px solid color.adjust($black, $alpha: -0.25);
+        border-radius: 8px;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        z-index: 3;
+        overflow: hidden;
+    }
+    &-options__option {
+        @extend %button-base;
+        text-align: center;
+        background-color: transparent;
+        color: var(--current);
+        border-radius: 0;
+        transition: 
+            background-color $easingAndDur,
+            color $easingAndDur;
+        cursor: pointer;
+
+        &:hover, &:focus {
+            background-color: var(--current);
+            color: color.adjust(#000, $alpha: -0.3);
+        }
+    }
+}

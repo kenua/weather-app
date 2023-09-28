@@ -11,9 +11,13 @@
 }
 
 img {
+  max-width: 100%;
   display: block;
 }
 
+#root {
+  height: 100%;
+}
 /* Document
    ========================================================================== */
 
@@ -26,6 +30,7 @@ img {
 	  font-size: 62.5%;
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
+    height: 100%;
   }
   
   /* Sections
@@ -36,10 +41,11 @@ img {
    */
   
   body {
-    font-family: 'Rubik', sans-serif;
-    background-color: $primary;
-    color: $color;
+    font-family: 'Nunito', sans-serif;
+    background-color: $brown;
+    color: white;
     margin: 0;
+    height: 100%;
   }
   
   /**

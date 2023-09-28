@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import weatherLogo from '../assets/images/Logo.svg';
 import Button from './Button';
@@ -25,15 +25,23 @@ const fadeVariants = {
         },
     },
 };
+const changeFadeVariants = {
+    initial: {
+        opacity: 1,
+    },
+    fadeOut: {
+        opacity: [1, 0, 1]
+    },
+    fadeIn: {
+        opacity: [0, 1]
+    },
+};
 
 function Location() {
     let [latitude, setLatitude] = useState('');
     let [longitude, setLongitude] = useState('');
     let [showCustomSelect, setShowCustomSelect] = useState(true);
     let [showWeatherBtn, setShowWeatherBtn] = useState(false);
-
-    let customSelectRef = useRef(null);
-    let coordinatesRef = useRef(null);
 
     const changeField = () => {
         setShowCustomSelect(!showCustomSelect);
@@ -50,90 +58,97 @@ function Location() {
     }, [latitude, longitude]);
 
     return (
-        <section className="location wrapper">
-            <div className="logo">
-                <img
-                    src={weatherLogo}
-                    className="logo__img"
-                    alt="Sun Half Covered By Clouds"
-                />
-                <h1 className="logo__heading f-nunito">Weather App</h1>
-            </div>
+        <section className="glass-container">
+            <img
+                src={weatherLogo}
+                className="logo"
+                alt="Sun Half Covered By Clouds"
+            />
+            <h1 className="app-name text-center">Weather App</h1>
+
+            {/* LOCATION/COORDINATES FIELDS */}
+            <AnimatePresence mode="wait">
+                {showCustomSelect && (
+                    <motion.div
+                        key="CustomSelect"
+                        variants={fadeVariants}
+                        initial={"initial"}
+                        animate={"animate"}
+                        exit={"exit"}
+                    >
+                        <CustomSelect
+                            setLatitude={setLatitude} 
+                            setLongitude={setLongitude} 
+                        />
+                    </motion.div>
+                )}
+                {!showCustomSelect && (
+                    <motion.div
+                        key="Coordinates"
+                        variants={fadeVariants}
+                        initial={"initial"}
+                        animate={"animate"}
+                        exit={"exit"}
+                    >
+                        <Coordinates 
+                            latitude={latitude}
+                            longitude={longitude}
+                            setLatitude={setLatitude} 
+                            setLongitude={setLongitude} 
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* CHANGE FIELD BUTTON */}
+            <AnimatePresence mode="wait">
+                <Button handleClick={changeField}>
+                    {showCustomSelect && (
+                        <motion.span
+                            key="typeCoordinates"
+                            variants={changeFadeVariants}
+                            initial={"initial"}
+                            animate={"fadeIn"}
+                            exit={"fadeOut"}
+                            className="button__item"
+                        >
+                        type coordinates
+                        </motion.span>
+                    )}
+                    {!showCustomSelect && (
+                        <motion.span
+                            key="selectLocation"
+                            variants={changeFadeVariants}
+                            initial={"initial"}
+                            animate={"fadeIn"}
+                            exit={"fadeOut"}
+                            className="button__item"
+                        >
+                        select location
+                        </motion.span>
+                    )}
+                    <span className="button__item button__icon">→</span>
+                </Button>
+            </AnimatePresence>
+
+            <div className="mb"/>
             
-            <form className="location-form">
-                <div className="location-form__field-container">
-                    <AnimatePresence mode="wait">
-                        {(showCustomSelect && 
-                            <motion.div
-                                key="1"
-                                variants={fadeVariants}
-                                initial={"initial"}
-                                animate={"animate"}
-                                exit={"exit"}
-                            >
-                                <CustomSelect 
-                                    ref={customSelectRef}
-                                    setLatitude={setLatitude} 
-                                    setLongitude={setLongitude} 
-                                />
-                            </motion.div>
-                        )}
-                        {(!showCustomSelect && 
-                            <motion.div
-                                key="2"
-                                variants={fadeVariants}
-                                initial={"initial"}
-                                animate={"animate"}
-                                exit={"exit"}
-                            >
-                                <Coordinates 
-                                    ref={coordinatesRef}
-                                    latitude={latitude}
-                                    longitude={longitude}
-                                    setLatitude={setLatitude} 
-                                    setLongitude={setLongitude} 
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
-                <AnimatePresence mode="wait">
-                    {(showCustomSelect && 
-                        <motion.div className="text-center"
-                            key="1"
-                            variants={fadeVariants}
-                            initial={"initial"}
-                            animate={"animate"}
-                            exit={"exit"}
-                        >
-                            <Button handleClick={changeField}>Type Coordinates</Button>
-                        </motion.div>
-                    )}
-                    {(!showCustomSelect && 
-                        <motion.div className="text-center"
-                            key="2"
-                            variants={fadeVariants}
-                            initial={"initial"}
-                            animate={"animate"}
-                            exit={"exit"}
-                        >
-                            <Button handleClick={changeField}>Select Location</Button>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-                <AnimatePresence>
-                    {(showWeatherBtn &&
-                        <motion.div className="text-center"
-                            variants={fadeVariants}
-                            initial={"initial"}
-                            animate={"animate"}
-                            exit={"exit"}
-                        >
-                            <Button handleClick={() => { console.log('hello') }}>Get Weather</Button>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </form>
+            {/* GET WEATHER BUTTON  */}
+            <AnimatePresence>
+                {(showWeatherBtn &&
+                    <motion.div className="text-center"
+                        variants={fadeVariants}
+                        initial={"initial"}
+                        animate={"animate"}
+                        exit={"exit"}
+                    >
+                        <Button handleClick={() => { console.log('hello') }}>
+                            <span className="button__item">get weather</span> 
+                            <span className="button__item button__icon">→</span>
+                        </Button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 }

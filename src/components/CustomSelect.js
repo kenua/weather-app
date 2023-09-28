@@ -53,14 +53,14 @@ const Options = forwardRef((props, ref) => {
     return (
         <ul 
             ref={ref} 
-            className="options" 
+            className="no-list-style"
             onMouseDown={(e) => selectOption(e.target)}
         >
             { optionsList.map(option => {
                 return (
                     <li 
                         key={option.id} 
-                        className="options__option" 
+                        className="select-button-options__option"
                         tabIndex="0" 
                         data-id={option.id} 
                         data-lat={option.lat}
@@ -74,14 +74,13 @@ const Options = forwardRef((props, ref) => {
     );
 });
 
-const CustomSelect = forwardRef((props, ref) => {
+function CustomSelect (props) {
     // # STATE VARIABLES
     let [inputValue, setInputValue] = useState('Select Location');
     let [showOptions, setShowOptions] = useState(false);
     let [optionId, setOptionId] = useState(null);
 
     // # REF VARIABLES
-    const selectInputRef = useRef(null);
     const optionsRef = useRef(null);
     let areOptionsOpen = useRef(false); // used to prevent handleOptionsActions from running on every key press when options are not open
 
@@ -149,11 +148,11 @@ const CustomSelect = forwardRef((props, ref) => {
     };
 
     return (
-        <div ref={ref} className="select-box-container">
-            <div ref={selectInputRef} className="select-box btn">
+        <div className="select-button mb">
+            <div className="select-button-content">
                 <input 
                     type="text" 
-                    className="select-box__input"
+                    className="select-button-content__input"
                     tabIndex="0" 
                     onFocus={toggleOptions}
                     value={inputValue}
@@ -162,13 +161,12 @@ const CustomSelect = forwardRef((props, ref) => {
                 <motion.svg 
                     variants={rotateVariant}
                     animate={showOptions ? 'pointUp' : 'pointDown'}
-                    transition={{ duration: 0.01 }}
                     width="15" 
                     height="9" 
                     viewBox="0 0 15 9" 
                     fill="none" 
                     xmlns="http://www.w3.org/2000/svg" 
-                    className="select-box__icon btn__icon"
+                    className="select-button__icon"
                 >
                     <path 
                         fillRule="evenodd" 
@@ -181,7 +179,6 @@ const CustomSelect = forwardRef((props, ref) => {
                     />
                 </motion.svg>
             </div>
-        
             <AnimatePresence>
                 { showOptions &&
                     <motion.div
@@ -189,6 +186,7 @@ const CustomSelect = forwardRef((props, ref) => {
                         initial={"initial"}
                         animate={"animate"}
                         exit={"exit"}
+                        className="select-button-options"
                     >
                         <Options ref={optionsRef} id={optionId} selectOption={selectOption} />
                     </motion.div>
@@ -196,6 +194,6 @@ const CustomSelect = forwardRef((props, ref) => {
             </AnimatePresence>
         </div>
     );
-});
+};
 
 export default CustomSelect;
