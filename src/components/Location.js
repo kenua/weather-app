@@ -37,7 +37,7 @@ const changeFadeVariants = {
     },
 };
 
-function Location() {
+function Location(props) {
     let [latitude, setLatitude] = useState('');
     let [longitude, setLongitude] = useState('');
     let [showCustomSelect, setShowCustomSelect] = useState(true);
@@ -142,7 +142,7 @@ function Location() {
                         animate={"animate"}
                         exit={"exit"}
                     >
-                        <Button handleClick={() => { console.log('hello') }}>
+                        <Button handleClick={() => props.printWeather(latitude, longitude)}>
                             <span className="button__item">get weather</span> 
                             <span className="button__item button__icon">→</span>
                         </Button>

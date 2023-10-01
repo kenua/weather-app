@@ -1,10 +1,5 @@
 function Coordinates(props) {
     let { latitude, setLatitude, longitude, setLongitude } = props;
-    // use this function in other occation
-    const convertStrToNumber = (str) => {
-        let coordinateRegExp = /^-?[0-9]+\.?[0-9]*$/;
-        return str.match(coordinateRegExp) ? +str : 0;
-    };
 
     return (
         <div>

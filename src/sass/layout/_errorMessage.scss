@@ -1,0 +1,39 @@
+@use 'sass:color';
+
+.error-message {
+    width: 100%;
+    position: fixed;
+    top: 20px;
+    left: 0;
+    z-index: 10;
+
+    &__warning {
+        width: 24px;
+        height: 20px;
+        max-width: none;
+        margin: 0 auto 7px;
+    }
+    &__title {
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+    &__button {
+        --current: #EC1F12;
+        line-height: 16px;
+        color: color.adjust(#fff, $alpha: -0.2);;
+        text-align: left;
+        align-items: center;
+        column-gap: 12px;
+        max-width: 350px;
+
+        &:hover, &:focus {
+            color: #fff;
+        }
+    }
+    &__subtract {
+        width: 18px;
+        max-width: none;
+        height: 18px;
+    }
+}

@@ -2,7 +2,7 @@ function Button(props) {
     return (
         <button 
             type="button" 
-            className="button"
+            className={`button ${props.classNames}`}
             onClick={() => props.handleClick()}
             tabIndex="0"
         >   
