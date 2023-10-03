@@ -1,0 +1,33 @@
+.weather {
+    &__icon {
+        width: 109px;
+        margin: -75px auto 20px;
+    }
+    &__top {
+        text-transform: capitalize;
+        text-align: center;
+        margin-bottom: 49px;
+    }
+    &__main {
+        font-size: 1.8rem;
+        margin-bottom: 3px;
+    }
+    &__description {
+        font-size: 1.6rem;
+    }
+    &-flex-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+    &__item--left {
+        font-size: 1.6rem;
+    }
+    &__item--left p:nth-child(1) {
+        margin-bottom: 10px;
+    }
+    &__temperature {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+    }
+}

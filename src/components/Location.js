@@ -144,7 +144,7 @@ function Location(props) {
                     >
                         <Button handleClick={() => props.printWeather(latitude, longitude)}>
                             <span className="button__item">get weather</span> 
-                            <span className="button__item button__icon">→</span>
+                            <span className="button__item button__icon">⟶</span>
                         </Button>
                     </motion.div>
                 )}

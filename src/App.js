@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
 	let [weatherData, setWeatherData] = useState({
+		id: 0,
 		weather: '',
 		description: '',
 		locationName: '',
@@ -18,11 +19,17 @@ function App() {
 	let [printError, setPrintError] = useState(false);
 	let [errorMessage, setErrorMessage] = useState({ title: '', desc: ''});
 
-	const changeThemeColor = (modifier) => {
-		if (modifier.length === 0) {
-			document.body.className = '';
+	const changeThemeColor = (id = 0) => {
+		if (id >= 200 && id <= 531) {
+			document.body.className = 'theme--blue';
+		} else if (id >= 600 && id <= 781) {
+			document.body.className = 'theme--purple';
+		} else if (id >= 800 && id <= 802) {
+			document.body.className = 'theme--yellow';
+		} else if (id === 803 || id === 804) {
+			document.body.className = 'theme--purple';
 		} else {
-			document.body.className = `theme--${modifier}`;
+			document.body.className = '';
 		}
 	}
 
@@ -37,6 +44,7 @@ function App() {
 
 			setWeatherData(weather);
 			setPrintComponent('weather');
+			changeThemeColor(weather.id);
 		} catch(error) {
 			setPrintError(true);
 
@@ -75,6 +83,7 @@ function App() {
 			let res = await fetch(url);
 			let data = await res.json();
 			let result = {
+				id: data.weather[0].id,
 				weather: data.weather[0].main,
 				description: data.weather[0].description,
 				locationName: data.name,
@@ -128,7 +137,7 @@ function App() {
                         exit={{ opacity: 0, x: -200 }}
 						className="weather"
 					>
-						<Weather weatherData={weatherData} />
+						<Weather weatherData={weatherData} setPrintComponent={setPrintComponent} />
 					</motion.div>	
 				)}
 			</AnimatePresence>

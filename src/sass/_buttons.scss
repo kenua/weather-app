@@ -105,3 +105,37 @@
         }
     }
 }
+.switch-button {
+    line-height: 1;
+    font-size: 1.1rem;
+    color: var(--current);
+    width: 50px;
+    height: 25px;
+    padding: 5px 6px;
+    border: 2px solid var(--current);
+    border-radius: 32px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    cursor: pointer;
+
+    &__ellipse {
+        @extend %buttonTransition;
+        background-color: var(--current);
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        transition: margin ease-in-out 200ms;
+    }
+    &__ellipse--on {
+        margin-left: 25px;
+    }
+    &__letter {
+        &::before {
+            content: "°";
+        }
+    }
+}
