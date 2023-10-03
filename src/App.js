@@ -6,6 +6,24 @@ import Weather from './components/Weather';
 import ErrorMessage from './components/ErrorMessage';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const weatherVariants = {
+	initial: { 
+		opacity: 0,
+		x: 300, 
+	},
+	animate: { 
+		opacity: 1, 
+		x: 0,
+		transition: {
+			delay: .5,
+		}
+	},
+	exit: { 
+		opacity: 0,
+		x: 300,
+	},
+}
+
 function App() {
 	let [weatherData, setWeatherData] = useState({
 		id: 0,
@@ -68,6 +86,11 @@ function App() {
 		}
 	};
 
+	const printLocation = () => {
+		changeThemeColor();
+		setPrintComponent('location');
+	};
+
 	const validateCoordinates = (latitude = '', longitude = '') => {
 		let isLatitudeValid = latitude.match(/^-?[0-9]+\.?[0-9]*$/);
 		let isLongitudeValid = longitude.match(/^-?[0-9]+\.?[0-9]*$/);
@@ -108,10 +131,10 @@ function App() {
 				{printComponent === 'location' && (
 					<motion.div
 						key={"Location"}
-						initial={{ opacity: 0, x: 200, }}
+						initial={{ opacity: 0, x: -300, }}
                         animate={{ opacity: 1, x: 0, transition: { delay: .5 } }}
-                        exit={{ opacity: 0, x: -200 }}
-						className="location"
+                        exit={{ opacity: 0, x: -300 }}
+						className="center"
 						style={{ display: 'inherit'}}
 					>
 						<Location printWeather={printWeather} />
@@ -123,7 +146,7 @@ function App() {
 						initial={{ opacity: 0, y: 200 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -200 }}
-						className="loading"
+						className="center"
 					>
 						<Loading />
 					</motion.div>
@@ -131,13 +154,13 @@ function App() {
 				{printComponent === 'weather' && (
 					<motion.div
 						key={"Weather"}
-						transition={{ delay: .5}}
-						initial={{ opacity: 0, x: 200 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -200 }}
-						className="weather"
+						variants={weatherVariants}
+						initial={"initial"}
+						animate={"animate"}
+						exit={"exit"}
+						className="center"
 					>
-						<Weather weatherData={weatherData} setPrintComponent={setPrintComponent} />
+						<Weather weatherData={weatherData} printLocation={printLocation} />
 					</motion.div>	
 				)}
 			</AnimatePresence>

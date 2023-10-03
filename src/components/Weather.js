@@ -65,7 +65,7 @@ function Weather(props) {
         </div>
 
         <div className="text-center">
-            <Button handleClick={() => props.setPrintComponent('location')}>
+            <Button handleClick={() => props.printLocation()}>
                 <span className="button__item button__icon">⟵</span>
                 <span className="button__item">Back</span> 
             </Button>
