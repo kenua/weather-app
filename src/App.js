@@ -4,25 +4,7 @@ import BackgroundParticles from './components/BackgroundParticles';
 import Loading from './components/Loading';
 import Weather from './components/Weather';
 import ErrorMessage from './components/ErrorMessage';
-import { motion, AnimatePresence } from 'framer-motion';
-
-const weatherVariants = {
-	initial: { 
-		opacity: 0,
-		x: 300, 
-	},
-	animate: { 
-		opacity: 1, 
-		x: 0,
-		transition: {
-			delay: .5,
-		}
-	},
-	exit: { 
-		opacity: 0,
-		x: 300,
-	},
-}
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
 	let [weatherData, setWeatherData] = useState({
@@ -128,41 +110,14 @@ function App() {
 		<div className="corner-particle corner-particle--bottom-left"></div>
 		<div className="content">
 			<AnimatePresence initial={false}>
-				{printComponent === 'location' && (
-					<motion.div
-						key={"Location"}
-						initial={{ opacity: 0, x: -300, }}
-                        animate={{ opacity: 1, x: 0, transition: { delay: .5 } }}
-                        exit={{ opacity: 0, x: -300 }}
-						className="center"
-						style={{ display: 'inherit'}}
-					>
-						<Location printWeather={printWeather} />
-					</motion.div>
-				)}
-				{printComponent === 'loading' && (
-					<motion.div
-						key={"Loading"}
-						initial={{ opacity: 0, y: 200 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -200 }}
-						className="center"
-					>
-						<Loading />
-					</motion.div>
-				)}
-				{printComponent === 'weather' && (
-					<motion.div
-						key={"Weather"}
-						variants={weatherVariants}
-						initial={"initial"}
-						animate={"animate"}
-						exit={"exit"}
-						className="center"
-					>
-						<Weather weatherData={weatherData} printLocation={printLocation} />
-					</motion.div>	
-				)}
+				{printComponent === 'location' && 
+					<Location key="location" printWeather={printWeather} />}
+
+				{printComponent === 'loading' && 
+					<Loading key="loading" />}
+
+				{printComponent === 'weather' && 
+					<Weather weatherData={weatherData} printLocation={printLocation} />}
 			</AnimatePresence>
 		</div>
 	</>

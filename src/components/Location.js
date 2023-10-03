@@ -6,6 +6,23 @@ import CustomSelect from './CustomSelect';
 import Coordinates from './Coordinates';
 
 const fadeVariants = {
+    initial: {
+        opacity: 0,
+        x: -300,
+    },
+    fadeIn: {
+        opacity: 1,
+        x: 0,
+        transition: { delay: .5 },
+    },
+    fadeOut: {
+        opacity: 0,
+        x: -300,
+        transition: { type: 'easeInOut' },
+    }
+};
+
+const buttonVariants = {
     initial: { 
         opacity: 0,
         x: 100,
@@ -25,7 +42,7 @@ const fadeVariants = {
         },
     },
 };
-const changeFadeVariants = {
+const textVariants = {
     initial: {
         opacity: 1,
     },
@@ -58,6 +75,14 @@ function Location(props) {
     }, [latitude, longitude]);
 
     return (
+    <motion.div
+        variants={fadeVariants}
+        initial={"initial"}
+        animate={"fadeIn"}
+        exit={"fadeOut"}
+        className="center"
+        style={{ display: 'inherit'}}
+    >
         <section className="glass-container">
             <img
                 src={weatherLogo}
@@ -71,7 +96,7 @@ function Location(props) {
                 {showCustomSelect && (
                     <motion.div
                         key="CustomSelect"
-                        variants={fadeVariants}
+                        variants={buttonVariants}
                         initial={"initial"}
                         animate={"animate"}
                         exit={"exit"}
@@ -85,7 +110,7 @@ function Location(props) {
                 {!showCustomSelect && (
                     <motion.div
                         key="Coordinates"
-                        variants={fadeVariants}
+                        variants={buttonVariants}
                         initial={"initial"}
                         animate={"animate"}
                         exit={"exit"}
@@ -106,7 +131,7 @@ function Location(props) {
                     {showCustomSelect && (
                         <motion.span
                             key="typeCoordinates"
-                            variants={changeFadeVariants}
+                            variants={textVariants}
                             initial={"initial"}
                             animate={"fadeIn"}
                             exit={"fadeOut"}
@@ -118,7 +143,7 @@ function Location(props) {
                     {!showCustomSelect && (
                         <motion.span
                             key="selectLocation"
-                            variants={changeFadeVariants}
+                            variants={textVariants}
                             initial={"initial"}
                             animate={"fadeIn"}
                             exit={"fadeOut"}
@@ -137,7 +162,7 @@ function Location(props) {
             <AnimatePresence>
                 {(showWeatherBtn &&
                     <motion.div className="text-center"
-                        variants={fadeVariants}
+                        variants={buttonVariants}
                         initial={"initial"}
                         animate={"animate"}
                         exit={"exit"}
@@ -150,6 +175,7 @@ function Location(props) {
                 )}
             </AnimatePresence>
         </section>
+    </motion.div>
     );
 }
 
