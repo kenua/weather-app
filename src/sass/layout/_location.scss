@@ -3,6 +3,11 @@
 .logo {
     width: 90px;
     margin: -65px auto 8px;
+
+    @media screen and (min-width: 768px) {
+        width: 115px;
+        margin: -100px auto 10px;
+    }
 }
 .app-name {
     font-size: 2.4rem;
@@ -10,7 +15,7 @@
 }
 .coordinate-label {
     @extend %buttonTransition;
-    font-size: 12px;
+    font-size: 1.4rem;
     font-weight: 900;
     color: var(--current);
     display: block;

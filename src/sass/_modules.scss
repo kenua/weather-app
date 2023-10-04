@@ -25,11 +25,18 @@
     margin: 0 auto;
     border-radius: 16px;
     border: 2px solid transparent;
+
+    @media screen and (min-width: 768px) {
+        padding: 40px 35px;
+    }
 }
 .no-list-style {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+.mt {
+    margin-top: 20px;
 }
 .mb {
     margin-bottom: 20px;

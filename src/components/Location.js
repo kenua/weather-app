@@ -155,13 +155,11 @@ function Location(props) {
                     <span className="button__item button__icon">→</span>
                 </Button>
             </AnimatePresence>
-
-            <div className="mb"/>
             
             {/* GET WEATHER BUTTON  */}
             <AnimatePresence>
                 {(showWeatherBtn &&
-                    <motion.div className="text-center"
+                    <motion.div className="text-center mt"
                         variants={buttonVariants}
                         initial={"initial"}
                         animate={"animate"}
