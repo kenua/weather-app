@@ -26,7 +26,7 @@ function App() {
 			document.body.className = 'theme--purple';
 		} else if (id >= 800 && id <= 802) {
 			document.body.className = 'theme--yellow';
-		} else if (id === 803 || id === 804) {
+		} else if (id >= 803 && id <= 804) {
 			document.body.className = 'theme--purple';
 		} else {
 			document.body.className = '';

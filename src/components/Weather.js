@@ -2,6 +2,12 @@ import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Button from './Button';
 import weatherLogo from '../assets/images/Logo.svg';
+import sunIcon from '../assets/images/sunIcon.svg';
+import rainIcon from '../assets/images/rainIcon.svg';
+import fewCloudsIcon from '../assets/images/fewCloudsIcon.svg';
+import cloudsIcon from '../assets/images/cloudsIcon.svg';
+import drizzleIcon from '../assets/images/drizzleIcon.svg';
+import thunderstormIcon from '../assets/images/thunderstormIcon.svg';
 
 const fadeVariants = {
 	initial: { 
@@ -52,6 +58,27 @@ function Weather(props) {
         humidity,
     } = props.weatherData;
 
+    // select icon based on id variable
+    let icon = weatherLogo;
+
+    if (id >= 200 && id <= 232) {
+        icon = thunderstormIcon;
+    } else if (id >= 300 && id <= 331) {
+        icon = drizzleIcon;
+    } else if (id >= 500 && id <= 531) {
+        icon = rainIcon;
+    } else if (id >= 600 && id <= 622) {
+        // snow missing
+    } else if (id >= 701 && id <= 781) {
+        // fog missing
+    } else if (id === 800) {
+        icon = sunIcon;
+    } else if (id >= 801 && id <= 802) {
+        icon = fewCloudsIcon;
+    } else if (id >= 803 && id <= 804) {
+        icon = cloudsIcon;
+    }
+
 	return (
     <motion.div
         variants={fadeVariants}
@@ -61,7 +88,7 @@ function Weather(props) {
         className="center"
     >
         <section className="glass-container weather">
-            <img src={weatherLogo} alt="placeholder" className="weather__icon" />
+            <img src={icon} alt="placeholder" className="weather__icon" />
 
             <div className="weather__top">
                 <h2 className="weather__main">{weather}</h2>
