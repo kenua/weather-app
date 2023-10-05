@@ -29,7 +29,6 @@
 .background-particles {
     width: 100%;
     height: 100%;
-    filter: blur(25px);
     position: fixed;
     top: 0;
     left: 0;
@@ -50,16 +49,16 @@
         opacity: 0;
     }
     20% {
-        opacity: .5;
+        opacity: .05;
     }
     40% {
-        opacity: .5;
+        opacity: .05;
     }
     60% {
-        opacity: 1;
+        opacity: .1;
     }
     80% {
-        opacity: 1;
+        opacity: .1;
     }
     100% {
         opacity: 0;
@@ -77,11 +76,12 @@
     }
 
     .background-particles__particle:nth-child(#{$i}) {
-        $size: random(70) + 10 + px;
+        $size: random(50) + 50 + px;
         width: $size;
         height: $size;
         animation-name:            fade-in-out, move-particle-#{$i};
         animation-duration:        20s, 20s;
+        animation-duration:        30s, 30s;
         animation-timing-function: ease-in, ease-in-out;
         animation-iteration-count: infinite;
         animation-delay: $i + s;

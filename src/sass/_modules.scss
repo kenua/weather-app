@@ -13,7 +13,7 @@
     position: absolute;
 }
 .glass-container {
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(10px);
     background-clip: padding-box;
     background-image: linear-gradient(
         135deg,
@@ -24,7 +24,7 @@
     padding: 20px 15px;
     margin: 0 auto;
     border-radius: 16px;
-    border: 2px solid transparent;
+    border: 3px solid transparent;
 
     @media screen and (min-width: 768px) {
         padding: 40px 35px;
