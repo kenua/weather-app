@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Ottawa - CA",
+    "latitude": 45.41117,
+    "longitude": -75.69812
+  },
+  {
+    "name": "Washington, D.C. - US",
+    "latitude": 38.89511,
+    "longitude": -77.03637
+  },
+  {
+    "name": "London - UK",
+    "latitude": 51.50853,
+    "longitude": -0.12574
+  },
+  {
+    "name": "Berlin - DE",
+    "latitude": 52.52437,
+    "longitude": 13.41053
+  },
+  {
+    "name": "Paris - FR",
+    "latitude": 48.85341,
+    "longitude": 2.3488
+  },
+  {
+    "name": "Rome - IT",
+    "latitude": 41.89193,
+    "longitude": 12.51133
+  },
+  {
+    "name": "Madrid - ES",
+    "latitude": 40.4165,
+    "longitude": -3.70256
+  },
+  {
+    "name": "Dublin - IE",
+    "latitude": 53.33306,
+    "longitude": -6.24889
+  },
+  {
+    "name": "Canberra - AU",
+    "latitude": -35.28346,
+    "longitude": 149.12807
+  },
+  {
+    "name": "Tokyo - JP",
+    "latitude": 35.6895,
+    "longitude": 139.69171
+  },
+  {
+    "name": "Taipei - TW",
+    "latitude": 25.04776,
+    "longitude": 121.53185
+  },
+  {
+    "name": "Seoul - KR",
+    "latitude": 37.566,
+    "longitude": 126.9784
+  },
+  {
+    "name": "Mexico City - MX",
+    "latitude": 19.42847,
+    "longitude": -99.12766
+  },
+  {
+    "name": "Bogotá - CO",
+    "latitude": 4.60971,
+    "longitude": -74.08175
+  },
+  {
+    "name": "Lima - PE",
+    "latitude": -12.04318,
+    "longitude": -77.02824
+  },
+  {
+    "name": "Santiago - CL",
+    "latitude": -33.45694,
+    "longitude": -70.64827
+  },
+  {
+    "name": "Buenos Aires - AR",
+    "latitude": -34.61315,
+    "longitude": -58.37723
+  },
+  {
+    "name": "Brasília - BR",
+    "latitude": -15.77972,
+    "longitude": -47.92972
+  },
+  {
+    "name": "Quito - EC",
+    "latitude": -0.22985,
+    "longitude": -78.52495
+  },
+  {
+    "name": "Panama City - PA",
+    "latitude": 9.33404,
+    "longitude": -79.89172
+  },
+  {
+    "name": "Caracas - VE",
+    "latitude": 10.48801,
+    "longitude": -66.87919
+  }
+]

@@ -1,6 +1,16 @@
 import { useState, useRef, forwardRef, useEffect } from 'react';
+import uniqid from 'uniqid';
 import { motion, AnimatePresence } from 'framer-motion';
-import optionsData from '../assets/dropdownData.json';
+import optionsData from '../assets/optionsData.json';
+
+// sort array alphabetically
+optionsData.sort((a, b) => {
+    let nameA = a.name;
+    let nameB = b.name;
+
+    return nameA.localeCompare(nameB);
+});
+optionsData = optionsData.map(optionsObj => ({id: uniqid(), ...optionsObj}));
 
 const showVariants = {
     initial: { 
@@ -63,8 +73,8 @@ const Options = forwardRef((props, ref) => {
                         className="select-button-options__option"
                         tabIndex="0" 
                         data-id={option.id} 
-                        data-lat={option.lat}
-                        data-long={option.long}
+                        data-lat={option.latitude}
+                        data-long={option.longitude}
                         >
                         {option.name}
                     </li>
@@ -123,6 +133,12 @@ function CustomSelect (props) {
                 break;
         }
     }
+
+    let handleKeyDown = (e) => {
+        let key = e.keyCode;
+
+        if (key === 40 || key === 38) e.preventDefault();
+    };
 
     useEffect(() => {
         window.addEventListener('keyup', handleOptionsActions);
@@ -186,6 +202,7 @@ function CustomSelect (props) {
                         animate={"animate"}
                         exit={"exit"}
                         className="select-button-options"
+                        onKeyDown={handleKeyDown}
                     >
                         <Options ref={optionsRef} id={optionId} selectOption={selectOption} />
                     </motion.div>
